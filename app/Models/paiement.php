@@ -18,10 +18,6 @@ class paiement extends Model
         'client_id',
     ];
 
-    public function resrvations(): HasOne
-    {
-        return $this->hasOne(reservation::class);
-    }
 
 
     public function client(): BelongsTo

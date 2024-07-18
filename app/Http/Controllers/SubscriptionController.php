@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Laravel\Cashier\Subscription as CashierSubscription;
 
-class SubscriptionController extends Controller
+
+class SubscriptionController extends CashierSubscription
 {
     public function create()
     {

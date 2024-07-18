@@ -18,15 +18,7 @@ class evenements extends Model
 
 
 
-    public function reservations(): HasMany
-    {
-        return $this->hasMany(reservation::class);
-    }
-    
-    public function formule(): BelongsTo
-    {
-        return $this->belongsTo(formule::class);
-    }
+
 
 
     public function client(): BelongsTo

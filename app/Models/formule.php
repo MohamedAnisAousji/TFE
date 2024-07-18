@@ -18,15 +18,7 @@ class formule extends Model
 
 
 
-    public function reservations(): belongsToMany
-    {
-        return $this->belongsToMany(reservation::class);
-    }
 
-    public function evenements(): HasMany
-    {
-        return $this->hasMany(evenements::class);
-    }
 
     public function client(): BelongsTo
     {

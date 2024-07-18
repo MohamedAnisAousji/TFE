@@ -16,10 +16,7 @@ class commentaire extends Model
         'commentaire', 'evaluation', 'client_id'
     ];
 
-    public function resrvations(): HasOne
-    {
-        return $this->hasOne(reservation::class);
-    }
+   
 
     public function clients(): BelongsTo
     {
