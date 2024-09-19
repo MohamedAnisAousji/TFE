@@ -34,14 +34,17 @@ Route::get('/', function () {
 
 
 
-Route::get('lang/{locale}', [LanguageController::class, 'changeLanguage'])->name('changeLanguage');
+
+// Route pour changer la langue
+Route::post('/set-locale', [LanguageController::class, 'handle'])->name('changeLanguage');
+
 
 //Les routes pour le choix de langue 
-Route::post('/set-locale', function (Request $request) {
-    $request->validate(['locale' => 'required|in:en,fr']);
-    session(['locale' => $request->locale]);
-    return redirect()->back()->with('status', 'Locale changed to ' . $request->locale);
-})->name('setLocale');
+// Route::post('/set-locale', function (Request $request) {
+//     $request->validate(['locale' => 'required|in:en,fr']);
+//     session(['locale' => $request->locale]);
+//     return redirect()->back()->with('status', 'Locale changed to ' . $request->locale);
+// })->name('setLocale');
 
 
 

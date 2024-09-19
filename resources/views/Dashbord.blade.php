@@ -1,13 +1,13 @@
 <x-Client-layout>
     <!-- Choix de la langue -->
     <div class="fixed top-0 right-0 m-4">
-    <form action="{{ route('setLocale') }}" method="POST">
+    <form action="{{ route('changeLanguage') }}" method="POST">
     @csrf
     <select name="locale" onchange="this.form.submit()">
         <option value="en" {{ session('locale') == 'en' ? 'selected' : '' }}>English</option>
         <option value="fr" {{ session('locale') == 'fr' ? 'selected' : '' }}>Français</option>
     </select>
-    </form>
+</form>
     </div>
 
     <!-- Votre contenu existant -->

@@ -19,7 +19,7 @@ class SubscriptionController extends CashierSubscription
 
         $paymentMethod = $request->input('payment_method');
 
-        $client->newSubscription('default', 'plan_id')
+        $client->newSubscription('default', 'price_1PhrB0GOkT7NMKHoHXClCK1z')
             ->create($paymentMethod);
 
         return redirect()->route('home')->with('success', 'Your subscription has been started.');
