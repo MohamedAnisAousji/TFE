@@ -14,8 +14,10 @@
 @endif
     <table>
       
+
+    
         <tr>
-            <td><label for="parentNom">Nom du parent:</label></td>
+            <td><label  for="parentNom">Nom du parent:</label></td>
             <td><input type="text" id="Nom_Parent" name="Nom_Parent" value="{{$client->Nom_Parent}}" required></td>
         </tr>
         <tr>
