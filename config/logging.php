@@ -54,16 +54,25 @@ return [
     'channels' => [
         'stack' => [
             'driver' => 'stack',
-            'channels' => ['single'],
+            'channels' => ['single','login'],
             'ignore_exceptions' => false,
         ],
-
+        
         'single' => [
             'driver' => 'single',
             'path' => storage_path('logs/laravel.log'),
             'level' => env('LOG_LEVEL', 'debug'),
             'replace_placeholders' => true,
         ],
+
+        
+        // Canal pour les connexions utilisateurs
+        'login' => [
+        'driver' => 'single', // Utilisez 'daily' si vous souhaitez un fichier par jour
+        'path' => storage_path('logs/login.log'),
+        'level' => 'info', // Niveau de log (peut être 'debug', 'info', 'warning', etc.)
+        ],
+
 
         'daily' => [
             'driver' => 'daily',
@@ -73,6 +82,7 @@ return [
             'replace_placeholders' => true,
         ],
 
+        
         'slack' => [
             'driver' => 'slack',
             'url' => env('LOG_SLACK_WEBHOOK_URL'),
@@ -81,6 +91,8 @@ return [
             'level' => env('LOG_LEVEL', 'critical'),
             'replace_placeholders' => true,
         ],
+
+
 
         'papertrail' => [
             'driver' => 'monolog',
@@ -127,5 +139,8 @@ return [
             'path' => storage_path('logs/laravel.log'),
         ],
     ],
+
+
+
 
 ];

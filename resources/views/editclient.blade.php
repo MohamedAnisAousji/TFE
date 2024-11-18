@@ -2,7 +2,7 @@
 <x-app-layout>
     <div class="flex justify-center items-center min-h-screen">
         <div class="mt-5 w-full max-w-md">
-            <form method="POST" action="{{ route('editclient.save') }}" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <form method="POST" action="{{ {{ route('clients.edit', ['id' => $client->id]) }}" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
                 @csrf
                 @if ($errors->any())
                     <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">

@@ -24,7 +24,7 @@ class CommentaireController extends Controller
      */
     public function create()
     {
-        return view("commentaire/addcommentaire");
+        return view("commentaire.addcommentaire");
 
     }
 

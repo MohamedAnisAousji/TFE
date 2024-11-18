@@ -35,6 +35,7 @@ class Kernel extends ConsoleKernel
         'web' => [
             // Autres middleware...
             \App\Http\Middleware\SetLocale::class,
+            \App\Http\Middleware\LogUserLogin::class,
         ],
 
         'api' => [

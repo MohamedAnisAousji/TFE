@@ -1,5 +1,7 @@
 <x-app-layout>
     <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
+    <div class="flex-auto text-2xl mb-4">La liste des Commentaires </div>
+    </div>
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-pink-200 dark:bg-pink-700 dark:text-gray-400">
                 <tr>

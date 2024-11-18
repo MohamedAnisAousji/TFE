@@ -181,6 +181,8 @@ class ClientController extends Controller
             'Genre'=> 'required',
             'Email'=> 'required|Email',
             'Envoi_Email'=>'required',
+            'password' => 'required|min:8',
+
 
         ]);
         $clients = Client::find($request->id);
@@ -189,6 +191,7 @@ class ClientController extends Controller
         $clients->Email= $request['Email'];
         $clients->Genre= $request['Genre'];
         $clients->Envoi_Email= $request['Envoi_Email'];
+        $clients->password = bcrypt($request->input('password')); 
 
 
         $clients->save();

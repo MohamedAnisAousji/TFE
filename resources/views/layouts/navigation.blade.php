@@ -41,6 +41,12 @@
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('commentaires.index')" :active="request()->routeIs('commentaires.index')">
+                        {{ __('Liste Commentaire') }}
+                    </x-nav-link>
+                </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashbord.client')" :active="request()->routeIs('dashbord.client')">
                         {{ __('Espace Client') }}
                     </x-nav-link>

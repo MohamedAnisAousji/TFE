@@ -40,7 +40,7 @@ class PaiementController extends Controller
             $payload, $sig_header, $secret
         );
 
-        // Handle the event (e.g., payment succeeded, subscription created, etc.)
+        // Handle the event ( payment succeeded, subscription created)
         switch ($event->type) {
             case 'payment_intent.succeeded':
                 $paymentIntent = $event->data->object; // Contains the payment intent data

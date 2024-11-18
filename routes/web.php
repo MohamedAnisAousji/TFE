@@ -16,6 +16,8 @@ use App\Http\Controllers\PaiementController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\LanguageController;
 use Illuminate\Http\Request;
+use App\Http\Controllers\DashboardController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +40,8 @@ Route::get('/', function () {
 // Route pour changer la langue
 Route::post('/set-locale', [LanguageController::class, 'handle'])->name('changeLanguage');
 
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware(['auth', 'log.user.login']);
 
 //Les routes pour le choix de langue 
 // Route::post('/set-locale', function (Request $request) {
@@ -64,8 +68,8 @@ Route::post('/set-locale', [LanguageController::class, 'handle'])->name('changeL
     Route::get('/Client/update', [ClientController::class, 'edit2'])->name('client.edit');
     Route::post('/Client/update', [ClientController::class, 'update2'])->name('client.update');
     
-    Route::post('/commentaire/aadcommentaire', [CommentaireController::class, 'store'])->name('commentaire.store');
-    Route::get('/commentaire/aadcommentaire', [CommentaireController::class, 'create'])->name('commentaire.create');
+    Route::post('/commentaire/addcommentaire', [CommentaireController::class, 'store'])->name('commentaire.store');
+    Route::get('/commentaire/addcommentaire', [CommentaireController::class, 'create'])->name('commentaire.create');
    
     Route::post('/formules/addformule', [FormuleController::class, 'storeFormule'])->name('storeF');
     Route::get('/formules/addformule', [FormuleController::class, 'createFormule'])->name('create.formules');
@@ -98,6 +102,8 @@ Route::post('/set-locale', [LanguageController::class, 'handle'])->name('changeL
     Route::post('/Event/Event', [EvenementsController::class, 'storeClient'])->name('Event.Client');
     Route::get('/Event/Event', [EvenementsController::class, 'show'])->name('Event.show');
     Route::get('/Event/confirm', [EvenementsController::class, 'Confirm'])->name('Event.Confirm');
+
+    
 
    
 
@@ -156,7 +162,6 @@ Route::middleware('auth')->group(function () {
    
    
    
-   //--------------------route client part
     Route::get('/addenfant', [EnfantController::class,'createE'])->name('createenfant');
     route::post('/addformule',[FormuleController::class,'saveFormule'])->name('createformule');
     Route::get('/addformule', [FormuleController::class,'createF'])->name('creatformule');

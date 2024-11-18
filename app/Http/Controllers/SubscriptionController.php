@@ -22,7 +22,7 @@ class SubscriptionController extends CashierSubscription
         $client->newSubscription('default', 'price_1PhrB0GOkT7NMKHoHXClCK1z')
             ->create($paymentMethod);
 
-        return redirect()->route('home')->with('success', 'Your subscription has been started.');
+        return redirect()->route('reservations.create')->with('success', 'Your subscription has been started.');
     }
 
 

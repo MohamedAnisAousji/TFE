@@ -29,7 +29,7 @@ class Client extends Model implements AuthenticatableContract
     
     public function reservations(): HasMany
     {
-        return $this->hasMany(Reservation::class);
+        return $this->hasMany(Reservation::class ,'client_id');
     }
     public function commentaires(): HasMany
     {
