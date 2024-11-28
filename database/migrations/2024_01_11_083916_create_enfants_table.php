@@ -19,7 +19,7 @@ return new class extends Migration
             $table->date('Date_Naissance');
             $table->foreignId("client_id");
 
-            $table->foreign('client_id')->references('id')->on('clients')->onDelete('restrict')->onUpdate('cascade');
+            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade')->onUpdate('cascade');
 
         });
     }

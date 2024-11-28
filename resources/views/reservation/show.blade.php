@@ -1,31 +1,20 @@
-<!-- resources/views/reservations/show.blade.php -->
 <x-client-layout>
     <div class="container mx-auto px-4 py-6">
-    <form action="{{ route('reservations.show')}}" method="GET">
-        <h1 class="text-xl font-bold text-center mb-4">Your Reservations</h1>
+        <h1 class="text-2xl font-bold text-center text-blue-600 mb-6">Your Reservations</h1>
+
         @if($reservations->isEmpty())
-            <p>You have no reservations.</p>
+            <p class="text-center text-gray-600">You have no reservations.</p>
         @else
-            <div class="overflow-x-auto">
-                <table class="w-full text-sm text-left text-gray-500">
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
-                        <tr>
-                            <th scope="col" class="py-3 px-6">Reservation ID</th>
-                            <th scope="col" class="py-3 px-6">Date</th>
-                            <th scope="col" class="py-3 px-6">Time</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($reservations as $reservation)
-                            <tr class="bg-white border-b">
-                                <td class="py-4 px-6">{{ $reservation->id }}</td>
-                                <td class="py-4 px-6">{{ $reservation->Date }}</td>
-                                <td class="py-4 px-6">{{ $reservation->heure_resrv }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                @foreach ($reservations as $reservation)
+                    <div class="bg-white shadow-lg rounded-lg p-4 border border-gray-200 hover:shadow-xl transition">
+                        <h2 class="text-xl font-bold text-gray-800 mb-2">Reservation ID: {{ $reservation->id }}</h2>
+                        <p class="text-gray-600"><strong>Date:</strong> {{ $reservation->Date }}</p>
+                        <p class="text-gray-600"><strong>Time:</strong> {{ $reservation->heure_resrv }}</p>
+                    </div>
+                @endforeach
             </div>
         @endif
     </div>
 </x-client-layout>
+
