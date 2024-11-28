@@ -12,7 +12,7 @@
 
     <!-- Votre contenu existant -->
     <div class="container mx-auto mt-1">
-        <div class="text-center bg-blue-100 p-5 rounded-lg shadow-lg">
+        <div class="text-center bg-blue-300 p-5 rounded-lg shadow-lg">
             <h1 class="text-xl font-bold">{{ __('messages.dashboard') }} Stardust Park</h1>
         </div>
     </div>
