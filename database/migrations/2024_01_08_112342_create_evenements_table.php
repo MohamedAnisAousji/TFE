@@ -12,19 +12,19 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('evenements', function (Blueprint $table) {
-            $table->id('id_Event');
-            $table->timestamps();
+            $table->id();
             $table->date('date_debut');
             $table->date('date_fin');
-            $table->integer('capacite');
-            $table->string('status',200);
-            $table->string('nom_societe',200);
-            $table->string('email',200);
-            $table->text('formule_demande');
-            $table->foreignId("client_id");
-            
-            $table->foreign('client_id')->references('id')->on('clients')->onDelete('restrict')->onUpdate('cascade');
-
+            $table->integer('nombre');
+            $table->enum('status', ['payer', 'impayer']);
+            $table->string('email', 200);
+            $table->string('nom_societe', 100)->nullable();
+            $table->longText('formule_demande')->nullable();
+        
+            $table->unsignedBigInteger('client_id');
+            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
+        
+            $table->timestamps();
 
 
 

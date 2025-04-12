@@ -13,18 +13,14 @@ return new class extends Migration
     {
         Schema::create('clients', function (Blueprint $table) {
             $table->id();
+            $table->string('nom_parent', 100);
+            $table->string('prenom_parent', 100);
+            $table->char('genre_parent', 1);
+            $table->string('email', 100)->unique();
+            $table->string('mot_de_passe', 45);
+            $table->boolean('envoi_mail')->default(0);
+            $table->enum('type_client', ['societe', 'client ordinaire']);
             $table->timestamps();
-            $table->string('Nom_Parent', 100)->nullable;
-            $table->string('Prenom_Parent',100 )->nullable;
-            $table->boolean('Genre');
-            $table->string('Email',100)->nullable;
-            $table->boolean('Envoi_Email')->nullable;
-            $table->string('password');
-            $table->rememberToken();
-            $table->boolean('Actif')->default('0');
-            $table->string('stripe_id')->nullable();
-            $table->string('pm_type')->nullable(); 
-            $table->string('pm_last_four')->nullable();
 
 
             

@@ -13,13 +13,14 @@ return new class extends Migration
     {
         Schema::create('enfants', function (Blueprint $table) {
             $table->id();
+            $table->date('date_Nais');
+            $table->string('nom_enfant', 45);
+            $table->string('prenom_Enfant', 45);
+        
+            $table->unsignedBigInteger('client_id');
+            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
+        
             $table->timestamps();
-            $table->string('Nom_enfant');
-            $table->string('Prenom_enfant');
-            $table->date('Date_Naissance');
-            $table->foreignId("client_id");
-
-            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade')->onUpdate('cascade');
 
         });
     }

@@ -13,14 +13,7 @@ return new class extends Migration
     {
         Schema::create('formules', function (Blueprint $table) {
             $table->id();
-            $table->float('montant');
-            $table->text('desc_formules');
-            $table->string('nom_formule', 100);
             $table->timestamps();
-
-
-
-
         });
     }
 

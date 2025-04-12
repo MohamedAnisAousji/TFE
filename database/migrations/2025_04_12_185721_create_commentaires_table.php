@@ -11,16 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('formules', function (Blueprint $table) {
+        Schema::create('commentaires', function (Blueprint $table) {
             $table->id();
-            $table->float('montant');
-            $table->text('desc_formules');
-            $table->string('nom_formule', 100);
             $table->timestamps();
-
-
-
-
         });
     }
 
@@ -29,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('formules');
+        Schema::dropIfExists('commentaires');
     }
 };
