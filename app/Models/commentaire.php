@@ -13,12 +13,12 @@ class commentaire extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'commentaire', 'evaluation', 'client_id'
+        'text',
+        'evaluation',
+        'client_id',
     ];
 
-   
-
-    public function clients(): BelongsTo
+    public function client()
     {
         return $this->belongsTo(Client::class);
     }

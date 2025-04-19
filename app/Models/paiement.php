@@ -13,15 +13,17 @@ class paiement extends Model
     use HasFactory;
 
     protected $fillable = [
-        'date_paiement',
-        'montant_paiement',
-        'client_id',
+        'date',
+        'mode_paiement',
+        'type_paiement',
+        'montant',
+        'reservation_id'
     ];
 
 
 
-    public function client(): BelongsTo
+    public function reservation()
     {
-        return $this->belongsTo(Client::class);
+        return $this->belongsTo(Reservation::class);
     }
 }

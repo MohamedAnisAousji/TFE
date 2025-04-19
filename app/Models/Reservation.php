@@ -12,13 +12,30 @@ use Illuminate\Database\Eloquent\Relations\belongsToMany;
 class Reservation extends Model
 {
     use HasFactory;
-    protected $fillable = ['Date', 'heure_resrv', 'client_id'];
+    protected $fillable = [
+        'date',
+        'heure',
+        'created_at',
+        'deleted_at',
+        'client_id',
+        'formule_id'
+    ];
 
 
 
-    public function clients(): BelongsTo
+    public function client()
     {
-        return $this->belongsTo(Client::class,'client_id');
+        return $this->belongsTo(Client::class);
+    }
+
+    public function formule()
+    {
+        return $this->belongsTo(Formule::class);
+    }
+
+    public function paiements()
+    {
+        return $this->hasMany(Paiement::class);
     }
 
 

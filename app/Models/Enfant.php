@@ -12,10 +12,11 @@ class Enfant extends Model
 
 
     protected $fillable = [
-        'Nom_enfant',
-        'Prenom_enfant',
-        'Date_Naissance',
-        'client_id',
+        'date_Nais',
+        'nom_enfant',
+        'prenom_Enfant',
+        'client_id'
+
     ];
 
 

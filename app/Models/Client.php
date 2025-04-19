@@ -18,44 +18,33 @@ class Client extends Model implements AuthenticatableContract
     
     use HasFactory,Authenticatable;
     protected $fillable = [
-        'Nom_Parent', 
-        'Prenom_Parent', 
-        'Genre', 
-        'Email', 
-        'Envoi_Email', 
-        'password', 
-        'Actif'
+        'nom_parent',
+        'prenom_parent',
+        'genre_parent',
+        'email',
+        'mot_de_passe',
+        'envoi_mail',
+        'type_client',
     ];
-    
-    public function reservations(): HasMany
-    {
-        return $this->hasMany(Reservation::class ,'client_id');
-    }
-    public function commentaires(): HasMany
-    {
-        return $this->hasMany(commentaire::class);
-    }
 
-    public function enfants(): HasMany
+    public function enfants()
     {
         return $this->hasMany(Enfant::class);
     }
 
-
-    public function formules(): HasMany
-    {
-        return $this->hasMany(formule::class);
-    }
-
-
-    public function paiement(): HasMany
-    {
-        return $this->hasMany(paiement::class);
-    }
-
-    public function evenements(): HasMany
+    public function evenements()
     {
         return $this->hasMany(evenements::class);
+    }
+
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class);
+    }
+
+    public function commentaires()
+    {
+        return $this->hasMany(Commentaire::class);
     }
 
 

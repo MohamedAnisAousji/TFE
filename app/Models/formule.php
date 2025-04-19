@@ -14,16 +14,15 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class formule extends Model
 {
     use HasFactory;
-    protected $fillable = ['nom_formule', 'Montant'];
+    protected $fillable = [ 'montant',
+    'desc_formules',
+    'nom_formule',
+];
 
-
-
-
-
-    public function client(): BelongsTo
-    {
-        return $this->belongsTo(Client::class);
-    }
+public function reservations()
+{
+    return $this->hasMany(Reservation::class);
+}
 
   
 

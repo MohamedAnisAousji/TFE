@@ -13,7 +13,16 @@ class evenements extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['date_debut', 'date_fin', 'capacite', 'status', 'nom_societe', 'email', 'formule_demande'];
+    protected $fillable = [
+        'date_debut',
+        'date_fin',
+        'nombre',
+        'status',
+        'email',
+        'nom_societe',
+        'formule_demande',
+        'client_id'
+    ];
 
 
 
