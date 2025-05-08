@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 
 
-class evenements extends Model
+class Evenement extends Model
 {
     use HasFactory;
 

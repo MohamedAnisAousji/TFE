@@ -21,13 +21,14 @@ class ClientFactory extends Factory
     public function definition(): array
     {
         return [
-            "Nom_Parent" => $this->faker->name(),
-            "Prenom_Parent" => $this->faker->name(),
-            "Email" => $this->faker->unique()->safeEmail(),
-            "Genre" => $this->faker->boolean(),  // Ajout des parenthèses
-            "Envoi_Email" => $this->faker->boolean(),  // Ajout des parenthèses
-            "password" => Hash::make('defaultPassword'),  // Hashage du mot de passe
-            "remember_token" => Str::random(10),
+            'nom_parent' => $this->faker->lastName(),
+            'prenom_parent' => $this->faker->firstName(),
+            'genre_parent' => $this->faker->randomElement(['M', 'F']),
+            'email' => $this->faker->unique()->safeEmail(),
+            'mot_de_passe' => Hash::make('defaultPassword'),
+            'type_client' => $this->faker->randomElement(['societe', 'client ordinaire']),
+            'envoi_mail' => $this->faker->boolean(),
+         
         ];
     }
 }

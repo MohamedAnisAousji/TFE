@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('prenom_parent', 100);
             $table->char('genre_parent', 1);
             $table->string('email', 100)->unique();
-            $table->string('mot_de_passe', 45);
+            $table->string('mot_de_passe', 255);
             $table->boolean('envoi_mail')->default(0);
             $table->enum('type_client', ['societe', 'client ordinaire']);
             $table->timestamps();
