@@ -15,8 +15,7 @@ return new class extends Migration
             $table->id();
             $table->date('date');
             $table->time('heure');
-            $table->date('created_at');
-            $table->date('deleted_at')->nullable();
+            $table->timestamps();
         
             $table->unsignedBigInteger('client_id');
             $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
