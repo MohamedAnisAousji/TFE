@@ -229,25 +229,29 @@ class ClientController extends Controller
     //Client Part
     public function register(Request $request)
     {
-        // Validez les données du formulaire d'inscription
-        $validatedData = $request->validate([
-            'Nom_Parent' => 'required',
-            'Prenom_Parent' => 'required',
-            'Genre' => 'required',
-            'Email' => 'required|email|unique:clients', // Assurez-vous que l'e-mail est unique
-            'password' => 'required|min:8', // validation pour le mot de passe
-            'Envoi_Email' => 'required',
-        ]);
-    
-        // Créez un nouveau client
-        $client = new Client();
-        $client->Nom_Parent = $request->input('Nom_Parent');
-        $client->Prenom_Parent = $request->input('Prenom_Parent');
-        $client->Genre = $request->input('Genre');
-        $client->Email = $request->input('Email');
-        $client->password = bcrypt($request->input('password')); // Cryptez le mot de passe
-        $client->Envoi_Email = $request->input('Envoi_Email');
-        $client->save();
+       
+      // Validez les données du formulaire d'inscription
+    $validatedData = $request->validate([
+        'nom_parent' => 'required|string|max:100',
+        'prenom_parent' => 'required|string|max:100',
+        'genre_parent' => 'required|in:M,F',
+        'email' => 'required|email|unique:clients,email',
+        'mot_de_passe' => 'required|string|min:8',
+        'type_client' => 'required|in:societe,client ordinaire',
+        'envoi_mail' => 'nullable|boolean',
+    ]);
+
+    // Créez un nouveau client
+    $client = new Client();
+    $client->nom_parent = $validatedData['nom_parent'];
+    $client->prenom_parent = $validatedData['prenom_parent'];
+    $client->genre_parent = $validatedData['genre_parent'];
+    $client->email = $validatedData['email'];
+    $client->mot_de_passe = bcrypt($validatedData['mot_de_passe']);
+    $client->type_client = $validatedData['type_client'];
+    $client->envoi_mail = $request->has('envoi_mail') ? 1 : 0;
+
+    $client->save();
     
         // Redirigez vers la page de connexion avec un message de succès
         return redirect()->route('Displaylogin')->with('success', 'Client registered successfully. Please log in.');
