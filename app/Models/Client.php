@@ -27,6 +27,12 @@ class Client extends Model implements AuthenticatableContract
         'type_client',
     ];
 
+
+     public function getAuthPassword()
+    {
+        return $this->mot_de_passe;
+    }
+
     public function enfants()
     {
         return $this->hasMany(Enfant::class);

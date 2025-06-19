@@ -29,21 +29,21 @@ class EnfantController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'Nom_enfant' => 'required|string|max:255',
-            'Prenom_enfant' => 'required|string|max:255',
-            'Date_Naissance' => 'required|date',
-        ]);
+        'nom_enfant' => 'required|string|max:45',
+        'prenom_Enfant' => 'required|string|max:45',
+        'date_Nais' => 'required|date',
+    ]);
 
-        $client_id = Auth::guard('client')->id();
+    $client_id = Auth::guard('client')->id();
 
-        Enfant::create([
-            'Nom_enfant' => $request->Nom_enfant,
-            'Prenom_enfant' => $request->Prenom_enfant,
-            'Date_Naissance' => $request->Date_Naissance,
-            'client_id' => $client_id,
-        ]);
+    Enfant::create([
+        'nom_enfant' => $request->nom_enfant,
+        'prenom_Enfant' => $request->prenom_Enfant,
+        'date_Nais' => $request->date_Nais,
+        'client_id' => $client_id,
+    ]);
 
-        return redirect()->route('dashbord.client')->with('success', 'Enfant ajouté avec succès.');
+    return redirect()->route('dashbord.client')->with('success', 'Enfant ajouté avec succès.');
     }
 
 
