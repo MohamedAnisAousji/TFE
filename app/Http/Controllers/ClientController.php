@@ -297,22 +297,29 @@ public function update2(Request $request)
     $client = auth()->user();
 
     $request->validate([
-        'Nom_Parent' => 'required|string|max:100',
-        'Prenom_Parent' => 'required|string|max:100',
-        'Genre' => 'required|boolean',
-        'Email' => 'required|string|email|max:100|unique:clients,Email,' . $client->id,
-        'Envoi_Email' => 'required|boolean',
-        'password' => 'nullable|string|min:8|confirmed', // Confirmer que le mot de passe correspond et est d'au moins 8 caractères
+        'nom_parent'      => 'required|string|max:100',
+        'prenom_parent'   => 'required|string|max:100',
+        'genre_parent'    => 'required|in:M,F', // 'M' ou 'F' dans ta base (char)
+        'email'           => 'required|string|email|max:100|unique:clients,email,' . $client->id,
+        'envoi_mail'      => 'required|boolean',
+        'type_client'     => 'required|in:societe,client ordinaire',
+        'mot_de_passe'    => 'nullable|string|min:8|confirmed',
     ]);
 
-    $data = $request->all();
-    if (!empty($data['password'])) {
-        $data['password'] = bcrypt($data['password']); // Hash du nouveau mot de passe
-    } else {
-        unset($data['password']); // Ne pas modifier le mot de passe s'il n'est pas fourni
+    $data = $request->only([
+        'nom_parent',
+        'prenom_parent',
+        'genre_parent',
+        'email',
+        'envoi_mail',
+        'type_client',
+    ]);
+
+    // Gestion du mot de passe (si changé)
+    if ($request->filled('mot_de_passe')) {
+        $data['mot_de_passe'] = bcrypt($request->mot_de_passe);
     }
 
-    // Mise à jour des informations
     $client->update($data);
 
     return redirect()->route('dashbord.client')->with('success', 'Profil mis à jour avec succès.');

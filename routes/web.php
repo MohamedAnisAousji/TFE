@@ -58,7 +58,8 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
 
 
 
-    Route::middleware(['auth:client'])->group(function () {
+    Route::middleware(['auth:client'])->group(function () {  
+
     Route::get('/Dashbord', [ClientController::class, 'index'])->name('dashbord.client');
     Route::get('/editclient/{id}', [ClientController::class, 'editclient'])->name('editclient.form');
     Route::post('/editclient', [ClientController::class, 'saveclient'])->name('editclient.save');

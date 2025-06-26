@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\evenements;
+use App\Models\Evenement;
 use Illuminate\Http\Request;
 
 class EvenementsController extends Controller
@@ -20,7 +20,7 @@ class EvenementsController extends Controller
      */
     public function create()
     {
-        $evenements= Evenements::all(); // Récupère tous les commentaires
+        $evenements= Evenement::all(); // Récupère tous les commentaires
         return view('listevenement', compact('evenements'));
         
 
@@ -42,7 +42,7 @@ class EvenementsController extends Controller
         'formule_demande' => 'required|string',
     ]);
 
-    $evenement = new Evenements();
+    $evenement = new Evenement();
         $evenement->date_debut=$request['date_debut'];
         $evenement-> date_fin=$request['date_fin'];
         $evenement->capacite=$request['capacite'];
@@ -74,7 +74,7 @@ class EvenementsController extends Controller
     ]);
 
     // Création d'un nouvel événement
-    $evenement = new Evenements();
+    $evenement = new Evenement();
     $evenement->date_debut = $request['date_debut'];
     $evenement->date_fin = $request['date_fin'];
     $evenement->capacite = $request['capacite'];
@@ -98,7 +98,7 @@ class EvenementsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(evenements $evenements)
+    public function show(Evenement $evenements)
     {
         return view ('/Event/Event');
 
@@ -107,12 +107,12 @@ class EvenementsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(evenements $evenements)
+    public function edit(Evenement $evenements)
     {
         //
     }
 
-    public function Confirm(evenements $evenements)
+    public function Confirm(Evenement $evenements)
     {
         return view ('/Event/confirm');
 
@@ -125,7 +125,7 @@ class EvenementsController extends Controller
      */
 
     
-    public function update(Request $request, evenements $evenements)
+    public function update(Request $request, Evenement $evenements)
     {
         //
     }
@@ -139,7 +139,7 @@ class EvenementsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(evenements $evenements)
+    public function destroy(Evenement $evenements)
     {
         //
     }

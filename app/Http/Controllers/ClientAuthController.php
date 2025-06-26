@@ -12,72 +12,44 @@ class ClientAuthController extends Controller
     public function login(Request $request)
     {
 
-        $credentials = $request->validate([
-            'Email' => 'required|email',
-            'password' => 'required'
-        ]);
-    
-        $email = $credentials['Email'];
-    
-        // Vérifiez si l'email existe
-        $client = Client::where('Email', $email)->first();
-    
-        if (!$client) {
-            return back()->withErrors([
-                'email' => 'Cet email ne correspond à aucun compte enregistré.',
-            ]);
-        }
-    
-        // Si l'email existe, essayez l'authentification
-        if (Auth::guard('client')->attempt($credentials, $request->filled('remember'))) {
-            $request->session()->regenerate();
-    
-            $client = Auth::guard('client')->user();
-            Session::put('client_id', $client->id);
-            Session::put('client_email', $client->Email);
-            Session::put('auth_guard', 'client');
-    
-            // Redirection vers l'espace client après une connexion réussie
-            return redirect()->intended('/Dashbord');
-        }
-    
-        // Si l'authentification échoue
+ // 1. Validation avec 'email' (minuscule) comme clé
+    $credentials = $request->validate([
+        'email' => 'required|email',
+        'password' => 'required'
+    ]);
+
+    $email = $credentials['email'];
+
+    // 2. Vérifie si l'email existe dans la base
+    $client = Client::where('email', $email)->first();
+
+    if (!$client) {
         return back()->withErrors([
-            'password' => 'Le mot de passe est incorrect.',
+            'email' => 'Cet email ne correspond à aucun compte enregistré.',
         ]);
+    }
 
-
-
-
-        // {
-        //     //dd($request->all());
-
-
-        //     $credentials = $request->validate([
-        //         'Email' => 'required|email',
-        //         'password' => 'required'
-        //     ]);
+    // 3. Authentifie le client avec le bon guard
+    if (Auth::guard('client')->attempt($credentials, $request->filled('remember'))) {
     
-        //     //$credentials = $request->only('Email', 'password');
-    
-        //     if (Auth::guard('client')->attempt($credentials, $request->filled('remember'))) {
-        //         $request->session()->regenerate();
+        $request->session()->regenerate();
 
-        //         $client=Auth::guard('client')->user();
-        //         Session::put('client_id', $client->id);
-        //         Session::put('client_email', $client->Email);
-        //         Session::put('auth_guard ','client');
+        $client = Auth::guard('client')->user();
 
+        // 4. Stocke les infos client en session
+        Session::put('client_id', $client->id);
+        Session::put('client_email', $client->email);
+        Session::put('auth_guard', 'client');
 
-    
-        //         // Redirection vers l'espace client après une connexion réussie
-        //         return redirect()->intended('/Dashbord');
-        //     }
-    
-        //     return back()->withErrors([
-        //         'email' => 'Les informations fournies ne correspondent pas à nos enregistrements.',
-        //     ]);
-        
+        // 5. Redirection vers l'espace client
+        return redirect()->intended('/Dashbord');
+    }
+
+    // 6. Mot de passe incorrect
+    return back()->withErrors([
+        'password' => 'Le mot de passe est incorrect.',
+    ]);
+
     }
 
     public function Displaylogin(){

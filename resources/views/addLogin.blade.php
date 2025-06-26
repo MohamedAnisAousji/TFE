@@ -35,7 +35,7 @@
                 <div class="mt-4">
                     <div>
                         <label for="email" class="block">Email</label>
-                        <input type="email" placeholder="Email" id="email" name="Email"
+                        <input type="email" placeholder="Email" id="email" name="email"
                                class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600" required>
                     </div>
                     <div class="mt-4">
