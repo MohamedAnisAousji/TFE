@@ -24,7 +24,7 @@ class FormuleFactory extends Factory
                 'Formule Argent',
                 'Formule Or',
                 'Formule Platine'
-            ]),
+            ])
         ];
     }
 }

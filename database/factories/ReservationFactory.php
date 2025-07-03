@@ -21,8 +21,8 @@ class ReservationFactory extends Factory
         return [
        'date' => $this->faker->date(),
             'heure' => $this->faker->time(),
-            //'created_at' => now(),
-            //'deleted_at' => null,
+            'created_at' => now(),
+            'deleted_at' => null,
             'client_id' => Client::factory(),
             'formule_id' => Formule::factory(),
         ];

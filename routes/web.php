@@ -71,17 +71,19 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
     
     Route::post('/commentaire/addcommentaire', [CommentaireController::class, 'store'])->name('commentaire.store');
     Route::get('/commentaire/addcommentaire', [CommentaireController::class, 'create'])->name('commentaire.create');
-   
-    Route::post('/formules/addformule', [FormuleController::class, 'storeFormule'])->name('storeF');
-    Route::get('/formules/addformule', [FormuleController::class, 'createFormule'])->name('create.formules');
+Route::get('/formules/addformule', [FormuleController::class, 'createFormule'])->name('create.formules');
+Route::post('/formules/addformule', [FormuleController::class, 'storeFormule'])->name('formules.add');
+    Route::get('/formules/from-session', [FormuleController::class, 'showFormuleWithSession'])->name('formules.from.session');
+
     Route::get('/get-enfants', [FormuleController::class, 'getEnfants'])->name('get-enfants');
     Route::get('/clients/mesformules', [ClientController::class, 'mesformules'])->name('clients.index');
     
     Route::post('/paiement/storepaiement', [PaiementController::class, 'storeFacture'])->name('paiement.store.facture');
-    Route::get('/paiement/addpaiement/{clientId}', [PaiementController::class, 'showFacture'])->name('paiements.facture');
+    Route::get('/paiement/addpaiement/{reservationId}', [PaiementController::class, 'showFacture'])->name('paiements.facture');
     Route::get('/paiement//payment', [PaiementController::class, 'showPaymentForm'])->name('payment.form');
     Route::post('/paiement/payment', [PaiementController::class, 'processPayment'])->name('payment.process');
     Route::post('/payment/webhook', [PaiementController::class, 'handleWebhook'])->name('payment.webhook');
+   
     //on'a ajouter les routes pour cree les abonements
     Route::get('/subscriptions/create', [SubscriptionController::class, 'create'])->name('subscriptions.create');
     Route::post('/subscriptions', [SubscriptionController::class, 'store'])->name('subscriptions.store');
@@ -96,8 +98,8 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
 
 
     
-    Route::get('/reservation/create', [ReservationController::class, 'create'])->name('reservations.create');
-    Route::post('/reservation/store', [ReservationController::class, 'store'])->name('reservations.store');
+Route::get('/reservations/create', [ReservationController::class, 'create'])->name('reservations.create');
+Route::post('/reservations/store', [ReservationController::class, 'store'])->name('reservations.store');
     Route::get('/reservation/show', [ReservationController::class, 'showReservations'])->name('reservations.show');
     
     Route::post('/Event/Event', [EvenementsController::class, 'storeClient'])->name('Event.Client');

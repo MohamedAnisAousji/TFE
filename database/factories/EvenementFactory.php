@@ -7,7 +7,7 @@ use App\Models\evenements;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- *   @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\evenements>
+ *   @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Evenement>
  */
 class EvenementFactory extends Factory
 {

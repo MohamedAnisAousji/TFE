@@ -62,34 +62,30 @@ class EvenementsController extends Controller
 
     public function storeClient(Request $request)
 {
-    // Valider les données du formulaire
+        // Validation des données
     $validatedData = $request->validate([
-        'date_debut' => 'required|date',
-        'date_fin' => 'required|date|after_or_equal:date_debut',
-        'capacite' => 'required|integer|min:1',
-        'status' => 'required|string|max:200',
-        'nom_societe' => 'required|string|max:200',
-        'email' => 'required|string|email|max:200',
-        'formule_demande' => 'required|string',
+        'date_debut'       => 'required|date',
+        'date_fin'         => 'required|date|after_or_equal:date_debut',
+        'nombre'           => 'required|integer|min:1',
+        'status'           => 'required|in:payer,impayer',
+        'email'            => 'required|email|max:200',
+        'nom_societe'      => 'nullable|string|max:100',
+        'formule_demande'  => 'nullable|string',
     ]);
 
-    // Création d'un nouvel événement
+    // Création de l'événement
     $evenement = new Evenement();
-    $evenement->date_debut = $request['date_debut'];
-    $evenement->date_fin = $request['date_fin'];
-    $evenement->capacite = $request['capacite'];
-    $evenement->status = $request['status'];
-    $evenement->nom_societe = $request['nom_societe'];
-    $evenement->email = $request['email'];
-    $evenement->formule_demande = $request['formule_demande'];
-    
-    // Ajouter l'ID du client connecté
-    $evenement->client_id = auth()->guard('client')->id();
+    $evenement->date_debut      = $validatedData['date_debut'];
+    $evenement->date_fin        = $validatedData['date_fin'];
+    $evenement->nombre          = $validatedData['nombre'];
+    $evenement->status          = $validatedData['status'];
+    $evenement->email           = $validatedData['email'];
+    $evenement->nom_societe     = $validatedData['nom_societe'];
+    $evenement->formule_demande = $validatedData['formule_demande'];
+    $evenement->client_id       = auth()->guard('client')->id();
 
-    // Sauvegarde de l'événement
     $evenement->save();
 
-    // Redirection avec un message de succès
     return redirect()->route('Event.Confirm')->with('success', 'Événement créé avec succès !');
 }
 

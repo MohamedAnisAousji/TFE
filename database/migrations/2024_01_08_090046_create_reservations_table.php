@@ -20,7 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('client_id');
             $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
         
-            $table->unsignedBigInteger('formule_id');
+            $table->unsignedBigInteger('formule_id')->nullable();
             $table->foreign('formule_id')->references('id')->on('formules')->onDelete('cascade');
          
 

@@ -22,7 +22,7 @@
         <!-- Menu vertical avec une couleur plus brillante -->
         <div class="bg-orange-500 text-white w-64 py-7 px-2 fixed inset-y-0 left-0 transform md:relative transition duration-200 ease-in-out shadow-lg">
             <!-- Logo ou titre -->
-            <a href="/formules/addformule" class="text-white px-6 py-2 block hover:bg-orange-600 rounded-lg">{{ __('messages.reserve_ordinary') }}</a>
+            <a href="/reservations/create" class="text-white px-6 py-2 block hover:bg-orange-600 rounded-lg">{{ __('messages.reserve_ordinary') }}</a>
             <a href="/Event/Event" class="text-white px-6 py-2 block hover:bg-orange-600 rounded-lg">{{ __('messages.reserve_event') }}</a>
             <a href="/Event/Event" class="text-white px-6 py-2 block hover:bg-orange-600 rounded-lg">{{ __('messages.reserve_school') }}</a>
             <a href="/enfants/mesenfants" class="text-white px-6 py-2 block hover:bg-orange-600 rounded-lg">{{ __('messages.my_children') }}</a>

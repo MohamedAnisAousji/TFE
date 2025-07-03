@@ -6,6 +6,7 @@ use App\Models\paiement;
 use Illuminate\Http\Request;
 use App\Models\Client;
 use App\Models\Formule;
+use App\Models\Reservation;
 use Stripe\Webhook;
 use Stripe\Exception\SignatureVerificationException;
 use Stripe\Stripe;
@@ -67,48 +68,50 @@ class PaiementController extends Controller
     public function storeFacture(Request $request)
 
     {
-        $cleanMontant = preg_replace('/[^\d.]/', '', $request->Montant);  // Enlève tout ce qui n'est pas un chiffre ou un point.
-        $request->merge(['Montant' => $cleanMontant]);
+           // Validation des données reçues du formulaire
+    $request->validate([
+        'reservation_id'     => 'required|exists:reservations,id',
+        'client_id'          => 'required|exists:clients,id',
+        'montant_paiement'   => 'required|numeric',
+        'date_paiementr'     => 'required|date',
+        'paiement_type'      => 'required|string|in:en_ligne,sur_place',
+    ]);
 
-        $request->validate([
-            'montant_paiement' => 'required|numeric',
-            'date_paiementr' => 'required|date',
-            'paiement_type' => 'required|string',
-        ]);
-    
-        // Création d'une nouvelle instance de paiement
+    try {
         $paiement = new Paiement();
-        $paiement->montant_paiement = $request->montant_paiement;
-        $paiement->date_paiementr = $request->date_paiementr;
-        $paiement->paiement_type = $request->paiement_type; // Assurez-vous d'inclure le champ pour le type de paiement
-        $paiement->client_id = auth()->guard('client')->id(); // Obtention de l'ID client à partir du guard spécifique
-    
-        // Tentative de sauvegarde du paiement avec gestion des erreurs
-        try {
-            $paiement->save();
-            // Vérifie le type de paiement pour rediriger vers la bonne route
-            if ($request->paiement_type == 'en_ligne') {
-                return redirect()->route('subscriptions.create')->with('success', 'Paiement enregistré avec succès. Préparez-vous à souscrire en ligne.');
-            } else {
-                return redirect()->route('reservations.create')->with('success', 'Paiement enregistré avec succès. Vous pouvez continuer à réserver sur place.');
-            }
-        } catch (\Exception $e) {
-            \Log::error("Erreur lors de la sauvegarde du paiement: " . $e->getMessage());
-            return back()->withErrors('Erreur lors de la sauvegarde du paiement: ' . $e->getMessage());
+
+        $paiement->reservation_id = $request->reservation_id;
+        $paiement->montant        = intval($request->montant_paiement);
+        $paiement->date           = $request->date_paiementr;
+        $paiement->mode_paiement  = 'paiement de formule';
+        $paiement->type_paiement  = $request->paiement_type;
+
+        $paiement->save();
+
+        // Redirection selon le type de paiement
+        if ($request->paiement_type === 'en_ligne') {
+            return redirect()->route('subscriptions.create')->with('success', 'Paiement enregistré avec succès. Paiement en ligne à venir.');
+        } else {
+            return redirect()->route('reservations.create')->with('success', 'Paiement enregistré avec succès. Vous pouvez continuer vos réservations.');
         }
 
+    } catch (\Exception $e) {
+        \Log::error("Erreur lors de l'enregistrement du paiement : " . $e->getMessage());
+        return back()->withErrors(['Erreur lors de l\'enregistrement du paiement : ' . $e->getMessage()]);
+    }
 
     }
 
     /**
      * Display the specified resource.
      */
-    public function showFacture($clientId)
+    public function showFacture($reservationId)
     {
-        $client = Client::findOrFail($clientId);
-        $formule = Formule::where('client_id', $clientId)->latest()->first(); // Supposant que vous voulez la dernière formule réservée
+        $reservation = Reservation::findOrFail($reservationId);
+    $client = $reservation->client;
+    $formule = $reservation->formule;
 
-        return view('paiement.addpaiement', compact('client', 'formule'));
+    return view('paiement.addpaiement', compact('reservation', 'client', 'formule'));
     }
 
 
