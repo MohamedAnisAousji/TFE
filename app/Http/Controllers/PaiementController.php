@@ -92,7 +92,7 @@ class PaiementController extends Controller
         if ($request->paiement_type === 'en_ligne') {
             return redirect()->route('subscriptions.create')->with('success', 'Paiement enregistré avec succès. Paiement en ligne à venir.');
         } else {
-            return redirect()->route('reservations.create')->with('success', 'Paiement enregistré avec succès. Vous pouvez continuer vos réservations.');
+            return redirect()->route('dashbord.client')->with('success', 'Paiement enregistré avec succès. Vous pouvez continuer vos réservations.');
         }
 
     } catch (\Exception $e) {

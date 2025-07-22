@@ -71,8 +71,8 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
     
     Route::post('/commentaire/addcommentaire', [CommentaireController::class, 'store'])->name('commentaire.store');
     Route::get('/commentaire/addcommentaire', [CommentaireController::class, 'create'])->name('commentaire.create');
-Route::get('/formules/addformule', [FormuleController::class, 'createFormule'])->name('create.formules');
-Route::post('/formules/addformule', [FormuleController::class, 'storeFormule'])->name('formules.add');
+    Route::get('/formules/addformule', [FormuleController::class, 'createFormule'])->name('create.formules');
+    Route::post('/formules/addformule', [FormuleController::class, 'storeFormule'])->name('formules.add');
     Route::get('/formules/from-session', [FormuleController::class, 'showFormuleWithSession'])->name('formules.from.session');
 
     Route::get('/get-enfants', [FormuleController::class, 'getEnfants'])->name('get-enfants');

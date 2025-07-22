@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('mot_de_passe', 255);
             $table->boolean('envoi_mail')->default(0);
             $table->enum('type_client', ['societe', 'client ordinaire']);
+            // $table->string('stripe_id')->nullable();
+            $table->string('stripe_id')->default('inconnu');
             $table->timestamps();
 
 
