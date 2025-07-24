@@ -17,6 +17,10 @@ use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\LanguageController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\StripePaymentController;
+use App\Http\Controllers\StripeWebhookController;
+
+
 
 
 /*
@@ -105,6 +109,14 @@ Route::post('/reservations/store', [ReservationController::class, 'store'])->nam
     Route::post('/Event/Event', [EvenementsController::class, 'storeClient'])->name('Event.Client');
     Route::get('/Event/Event', [EvenementsController::class, 'show'])->name('Event.show');
     Route::get('/Event/confirm', [EvenementsController::class, 'Confirm'])->name('Event.Confirm');
+
+
+    //route Stripe
+    Route::post('/stripe/payment-intent', [StripePaymentController::class, 'createPaymentIntent']);
+    Route::post('/stripe/webhook', [StripeWebhookController::class, 'handleWebhook']);
+
+
+
 
     
 

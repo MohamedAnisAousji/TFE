@@ -20,18 +20,14 @@ return new class extends Migration
             $table->string('mot_de_passe', 255);
             $table->boolean('envoi_mail')->default(0);
             $table->enum('type_client', ['societe', 'client ordinaire']);
-            // $table->string('stripe_id')->nullable();
-            $table->string('stripe_id')->default('inconnu');
+            $table->string('stripe_id')->nullable();
+
+            // Champs Stripe
+            $table->string('pm_type')->nullable();        
+            $table->string('pm_last_four', 4)->nullable();   
+
             $table->timestamps();
-
-
-            
-
-
-
-        
         });
-
     }
 
     /**
@@ -40,11 +36,5 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('clients');
-         //Schema::table('clients', function (Blueprint $table) {
-          //$table->dropColumn('Actif'); // Supprime le champ si la migration est annulée
-        // });
     }
-
-
-
 };

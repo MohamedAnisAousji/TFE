@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('mode_paiement', 45);
             $table->string('type_paiement', 45);
             $table->integer('montant');
-            $table->string('stripe_id')->nullable(); // OK
+            $table->string('stripe_id')->nullable(); 
             $table->string('pm_type')->nullable();
         
             $table->unsignedBigInteger('reservation_id');

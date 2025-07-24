@@ -15,8 +15,8 @@ use Laravel\Cashier\Billable;
 class Client extends Model implements AuthenticatableContract
 {
     use Billable;
-    
-    use HasFactory,Authenticatable;
+
+    use HasFactory, Authenticatable;
     protected $fillable = [
         'nom_parent',
         'prenom_parent',
@@ -28,7 +28,7 @@ class Client extends Model implements AuthenticatableContract
     ];
 
 
-     public function getAuthPassword()
+    public function getAuthPassword()
     {
         return $this->mot_de_passe;
     }
@@ -40,7 +40,7 @@ class Client extends Model implements AuthenticatableContract
 
     public function evenements()
     {
-        return $this->hasMany(evenements::class);
+        return $this->hasMany(Evenement::class);
     }
 
     public function reservations()
@@ -52,8 +52,25 @@ class Client extends Model implements AuthenticatableContract
     {
         return $this->hasMany(Commentaire::class);
     }
+    public function subscriptions()
+    {
+    return $this->hasMany(\Laravel\Cashier\Subscription::class, 'client_id');
+    }
 
 
- 
 
+   /*  public function createAsStripeCustomer(array $options = [])
+    {
+        $options['address'] = [
+            'line1' => 'Stardust Park',
+            'postal_code' => '1000',
+            'city' => 'Bruxelles',
+            'country' => 'BE', // ⚠️ ISO 2 lettres
+        ];
+
+        $options['name'] = $this->prenom_parent . ' ' . $this->nom_parent;
+        $options['email'] = $this->email;
+
+        return parent::createAsStripeCustomer($options);
+    } */
 }

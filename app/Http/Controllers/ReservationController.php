@@ -30,4 +30,9 @@ class ReservationController extends Controller
         // Envoyer l'ID de la réservation à l'étape suivante (formule)
         return redirect()->route('create.formules')->with('reservation_id', $reservation->id);
     }
+
+    
+
+
+
 }
