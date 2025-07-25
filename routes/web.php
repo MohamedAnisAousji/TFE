@@ -160,8 +160,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/newclient', [ClientController::class, 'newclient'])->name('newclient');
     Route::get('/editclient/{id}', [ClientController::class, 'editclient'])->name('editclient.form');
     Route::post('/editclient', [ClientController::class, 'saveclient'])->name('editclient.save');
-    Route::get('/deleteclient/{id}', [ClientController::class, 'deleteclient'])->name('deleteclient.deleteClient');
-    Route::get('/Email', [ClientController::class, 'Envoiemail'])->name('Envoiemail');
+    Route::get('/deleteclient/{id}', [ClientController::class, 'deleteclient'])->name('deleteclient.deleteClient');    Route::get('/Email', [ClientController::class, 'Envoiemail'])->name('Envoiemail');
     Route::get('/editclient', [ClientController::class, 'saveclient'])->name('editclient.add');
     //route partie client
     Route::post('/saveclient', [ClientController::class, 'register'])->name('saveclient');

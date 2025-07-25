@@ -14,7 +14,8 @@ class CommentaireController extends Controller
      */
     public function index()
     {
-        $commentaires = Commentaire::all(); // Récupère tous les commentaires
+        // Récupère tous les commentaires
+        $commentaires = Commentaire::all(); 
         return view('listcommentaire', compact('commentaires'));
 
     }
@@ -32,17 +33,26 @@ class CommentaireController extends Controller
      * Store a newly created resource in storage.
      */  public function store(Request $request)
     {
+        // Valide les données du formulaire : 
+        // 'commentaire' doit être présent et être une chaîne de caractères
+        // 'evaluation' doit être un entier entre 1 et 5
+        
         $request->validate([
             'commentaire' => 'required|string',
             'evaluation' => 'required|integer|min:1|max:5',
         ]);
-
+        
+        // Crée une nouvelle instance du modèle Commentaire
         $commentaire = new Commentaire();
+        // Assigne le texte du commentaire depuis la requête
         $commentaire->commentaire = $request->commentaire;
+        // Assigne la note d'évaluation depuis la requête
         $commentaire->evaluation = $request->evaluation;
+        // Associe le commentaire au client actuellement connecté (via le guard 'client')
         $commentaire->client_id = Auth::guard('client')->id();
+        // Enregistre le commentaire dans la base de données
         $commentaire->save();
-
+        // Redirige vers le tableau de bord client avec un message de succès
         return redirect()->route('dashbord.client')->with('success', 'Commentaire ajouté avec succès');
     }
 
