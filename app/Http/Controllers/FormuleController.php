@@ -11,6 +11,8 @@ class FormuleController extends Controller
 {
     public function createFormule()
     {
+       
+
         // On récupère la dernière réservation du client
         $reservation = Reservation::where('client_id', auth()->guard('client')->id())
                           ->with('formule') // relation avec formule
@@ -25,6 +27,18 @@ class FormuleController extends Controller
         }
 
         return view('formules.addformule', compact('reservation'));
+
+                // Récupère les enfants liés au client connecté
+                
+                
+                dd($enfants);
+
+                $enfants = Enfant::where('client_id', $clientId)->get();
+      
+
+
+        return view('formules.addformule', compact('reservation', 'enfants'));
+    
     }
 
     public function storeFormule(Request $request)

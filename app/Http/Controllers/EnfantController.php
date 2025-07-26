@@ -57,6 +57,19 @@ class EnfantController extends Controller
          return view('enfants.mesenfants', compact('enfants'));
         
     }
+
+    public function apiEnfantsForClient()
+{
+    $clientId = auth()->guard('client')->id();
+
+    if (!$clientId) {
+        return response()->json(['message' => 'Non authentifié'], 401);
+    }
+
+    $enfants = Enfant::where('client_id', $clientId)->get();
+
+    return response()->json($enfants);
+}
     
 
 

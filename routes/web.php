@@ -80,6 +80,7 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
     Route::get('/formules/from-session', [FormuleController::class, 'showFormuleWithSession'])->name('formules.from.session');
 
     Route::get('/get-enfants', [FormuleController::class, 'getEnfants'])->name('get-enfants');
+Route::get('/api/client/enfants', [EnfantController::class, 'apiEnfantsForClient'])->middleware('auth:client');
     Route::get('/clients/mesformules', [ClientController::class, 'mesformules'])->name('clients.index');
     
     Route::post('/paiement/storepaiement', [PaiementController::class, 'storeFacture'])->name('paiement.store.facture');

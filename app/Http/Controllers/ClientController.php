@@ -299,7 +299,7 @@ public function update2(Request $request)
     $request->validate([
         'nom_parent'      => 'required|string|max:100',
         'prenom_parent'   => 'required|string|max:100',
-        'genre_parent'    => 'required|in:M,F', // 'M' ou 'F' dans ta base (char)
+        'genre_parent'    => 'required|in:M,F', // 'M' ou 'F' dans la base (char)
         'email'           => 'required|string|email|max:100|unique:clients,email,' . $client->id,
         'envoi_mail'      => 'required|boolean',
         'type_client'     => 'required|in:societe,client ordinaire',
