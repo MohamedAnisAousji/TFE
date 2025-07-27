@@ -61,8 +61,3 @@
         </div>
     </div>
 </x-client-layout>
-
-
-
-
-

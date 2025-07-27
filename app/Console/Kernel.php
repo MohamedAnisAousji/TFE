@@ -27,6 +27,8 @@ class Kernel extends ConsoleKernel
 
     protected $routeMiddleware = [
         'auth.client' => \App\Http\Middleware\EnsureUserIsClient::class,
+        'logout.other.guards' => \App\Http\Middleware\LogoutOtherGuards::class,
+
 
         // autres middlewares...
     ];

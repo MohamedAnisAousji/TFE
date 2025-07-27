@@ -19,6 +19,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\StripePaymentController;
 use App\Http\Controllers\StripeWebhookController;
+use App\Http\Controllers\AdminAuthController;
 
 
 
@@ -80,7 +81,7 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
     Route::get('/formules/from-session', [FormuleController::class, 'showFormuleWithSession'])->name('formules.from.session');
 
     Route::get('/get-enfants', [FormuleController::class, 'getEnfants'])->name('get-enfants');
-Route::get('/api/client/enfants', [EnfantController::class, 'apiEnfantsForClient'])->middleware('auth:client');
+    Route::get('/api/client/enfants', [EnfantController::class, 'apiEnfantsForClient'])->middleware('auth:client');
     Route::get('/clients/mesformules', [ClientController::class, 'mesformules'])->name('clients.index');
     
     Route::post('/paiement/storepaiement', [PaiementController::class, 'storeFacture'])->name('paiement.store.facture');
@@ -116,29 +117,40 @@ Route::post('/reservations/store', [ReservationController::class, 'store'])->nam
     Route::post('/stripe/payment-intent', [StripePaymentController::class, 'createPaymentIntent']);
     Route::post('/stripe/webhook', [StripeWebhookController::class, 'handleWebhook']);
 
-
-
-
-    
-
-   
-
-
-    
-    
-    
-
-
-
-
-
-
-
-
-
-
-
 });
+
+
+
+//midlhware admin 
+
+
+// Formulaire de connexion admin
+Route::get('/admin/login', [AdminAuthController::class, 'displayLogin'])->name('admin.login');
+
+// Traitement du login admin
+Route::post('/admin/login', [AdminAuthController::class, 'login'])->name('admin.login.submit');
+
+// Dashboard admin (protégé par auth:admin)
+Route::middleware('auth:admin')->group(function () {
+    Route::get('/admin/dashboard', function () {
+        return view('admin.dashboard'); // Crée cette vue si elle n'existe pas
+    })->name('admin.dashboard');
+
+    // Route de déconnexion admin
+    Route::post('/admin/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
+});
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
