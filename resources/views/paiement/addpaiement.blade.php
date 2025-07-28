@@ -1,6 +1,12 @@
 <x-Client-layout>
-    <div class="relative min-h-screen bg-cover bg-center flex items-center justify-end px-8"
-         style="background-image: url('{{ asset('images/facture-bg.png') }}');">
+<div class="relative min-h-screen flex items-center justify-end px-8">
+    <!-- Overlay clair -->
+    <div class="absolute inset-0 bg-white opacity-40 z-0"></div>
+
+    <!-- Image de fond -->
+    <div class="absolute inset-0 bg-cover bg-center z-[-1]"
+         style="background-image: url('{{ asset('images/facture-bg1.png') }}'); filter: brightness(1.5);">
+    </div>
 
         <!-- 💬 Bulle commentaire à gauche -->
         <div class="absolute left-8 top-1/2 transform -translate-y-1/2 max-w-sm">
@@ -71,7 +77,7 @@
                 <div class="mt-6 text-center">
                     <button type="submit"
                             class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-lg shadow transition">
-                        ✅ Confirmer la Facturation
+                        Confirmer la Facturation
                     </button>
                 </div>
             </form>
