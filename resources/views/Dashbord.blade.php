@@ -1,77 +1,80 @@
 <x-Client-layout>
-    <!-- Choix de la langue -->
-    <div class="fixed top-0 right-0 m-4">
+    {{-- 🌐 Sélecteur de langue --}}
+    <div class="fixed top-0 right-0 m-4 z-50">
         <form action="{{ route('changeLanguage') }}" method="POST">
             @csrf
-            <select name="locale" class="border border-gray-300 rounded-md m-2" onchange="this.form.submit()">
+            <select name="locale" class="border border-gray-300 rounded-md bg-white/80 backdrop-blur px-2 py-1" onchange="this.form.submit()">
                 <option value="en" {{ session('locale') == 'en' ? 'selected' : '' }}>English</option>
                 <option value="fr" {{ session('locale') == 'fr' ? 'selected' : '' }}>Français</option>
             </select>
         </form>
     </div>
 
-    <!-- Votre contenu existant -->
-    <div class="container mx-auto mt-1">
-        <div class="text-center bg-blue-300 p-5 rounded-lg shadow-lg">
-            <h1 class="text-xl font-bold">{{ __('messages.dashboard') }} Stardust Park</h1>
-        </div>
+    {{-- 🌄 Image de fond --}}
+    <div class="fixed inset-0 -z-10">
+        <img src="{{ asset('images/dashbord.png') }}" alt="background" class="w-full h-full object-cover brightness-90">
     </div>
 
-    <!-- Barre de menu verticale sur le côté gauche -->
-    <div class="flex h-screen overflow-hidden" style="background-image: url('{{ asset('image/img1.JPG') }}'); background-size: cover; background-position: center;">
-        <!-- Menu vertical avec une couleur plus brillante -->
-        <div class="bg-orange-500 text-white w-64 py-7 px-2 fixed inset-y-0 left-0 transform md:relative transition duration-200 ease-in-out shadow-lg">
-            <!-- Logo ou titre -->
-            <a href="/reservations/create" class="text-white px-6 py-2 block hover:bg-orange-600 rounded-lg">{{ __('messages.reserve_ordinary') }}</a>
-            <a href="/Event/Event" class="text-white px-6 py-2 block hover:bg-orange-600 rounded-lg">{{ __('messages.reserve_event') }}</a>
-            <a href="/Event/Event" class="text-white px-6 py-2 block hover:bg-orange-600 rounded-lg">{{ __('messages.reserve_school') }}</a>
-            <a href="/enfants/mesenfants" class="text-white px-6 py-2 block hover:bg-orange-600 rounded-lg">{{ __('messages.my_children') }}</a>
-            <a href="/reservation/show" class="text-white px-6 py-2 block hover:bg-orange-600 rounded-lg">{{ __('messages.my_packages') }}</a>
-            <a href="#" class="text-white px-6 py-2 block hover:bg-orange-600 rounded-lg" onclick="document.getElementById('formLogout').submit();">{{ __('messages.logout') }}</a>
-            <form id="formLogout" action="{{ route('client.logout') }}" method="POST">
-                @csrf
-            </form>
+    {{-- 🧭 Disposition principale --}}
+    <div class="flex min-h-screen">
+
+        {{-- 🍊 Menu latéral avec transparence --}}
+       <div class="bg-black/70 backdrop-blur-sm text-white w-64 py-10 px-4 fixed inset-y-0 left-0 z-20 shadow-lg rounded-r-xl">
+            <a href="/reservations/create" class="block px-4 py-2 mb-2 hover:bg-orange-500 rounded-md transition">{{ __('messages.reserve_ordinary') }}</a>
+            <a href="/Event/Event" class="block px-4 py-2 mb-2 hover:bg-orange-500 rounded-md transition">{{ __('messages.reserve_event') }}</a>
+            <a href="/Event/Event" class="block px-4 py-2 mb-2 hover:bg-orange-500 rounded-md transition">{{ __('messages.reserve_school') }}</a>
+            <a href="/enfants/mesenfants" class="block px-4 py-2 mb-2 hover:bg-orange-500 rounded-md transition">{{ __('messages.my_children') }}</a>
+            <a href="/reservation/show" class="block px-4 py-2 mb-2 hover:bg-orange-500 rounded-md transition">{{ __('messages.my_packages') }}</a>
+            <a href="#" class="block px-4 py-2 mt-4 hover:bg-orange-500 rounded-md transition" onclick="document.getElementById('formLogout').submit();">{{ __('messages.logout') }}</a>
+            <form id="formLogout" action="{{ route('client.logout') }}" method="POST">@csrf</form>
         </div>
 
-        <!-- Contenu principal -->
-        <div class="container mx-auto px-4 py-8">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="flex justify-center">
-                    <div class="p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md hover:shadow-lg transition">
-                        <a href="/Client/update" class="mb-2 text-2xl font-bold tracking-tight text-gray-900">{{ __('messages.modify_profile') }}</a>
-                        <i class="fa-solid fa-pen-fancy"></i>
-                    </div>
+        {{-- 📄 Contenu principal --}}
+        <div class="flex-1 ml-64 px-10 py-10">
+            {{-- 🧊 Titre de bienvenue --}}
+            <div class="text-center bg-white-200/70 backdrop-blur-md p-6 rounded-xl shadow-md mb-10">
+                <h1 class="text-2xl font-bold text-gray-800">{{ __('messages.dashboard') }} Stardust Park</h1>
+            </div>
+
+            {{-- 🔲 Cartes --}}
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white/70 backdrop-blur-lg p-6 rounded-xl shadow-lg hover:shadow-2xl transition text-center">
+                    <a href="/Client/update" class="text-xl font-semibold text-gray-900 block">{{ __('messages.modify_profile') }}</a>
+                    <div class="text-blue-600 mt-3"><i class="fa-solid fa-pen-fancy fa-lg"></i></div>
                 </div>
-                <div class="flex justify-center">
-                    <div class="p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md hover:shadow-lg transition">
-                        <a href="/enfants/create" class="mb-2 text-2xl font-bold tracking-tight text-gray-900">{{ __('messages.add_child') }}</a>
-                        <i class="fa-sharp fa-solid fa-baby"></i>
-                    </div>
+
+                <div class="bg-white/70 backdrop-blur-lg p-6 rounded-xl shadow-lg hover:shadow-2xl transition text-center">
+                    <a href="/enfants/create" class="text-xl font-semibold text-gray-900 block">{{ __('messages.add_child') }}</a>
+                    <div class="text-green-600 mt-3"><i class="fa-solid fa-baby fa-lg"></i></div>
                 </div>
-                <div class="flex justify-center">
-                    <div class="p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md hover:shadow-lg transition">
-                        <a href="/commentaire/addcommentaire" class="mb-2 text-2xl font-bold tracking-tight text-gray-900">{{ __('messages.add_comment') }}</a>
-                        <i class="fa-solid fa-comment"></i>
-                    </div>
+
+                <div class="bg-white/70 backdrop-blur-lg p-6 rounded-xl shadow-lg hover:shadow-2xl transition text-center">
+                    <a href="/commentaire/addcommentaire" class="text-xl font-semibold text-gray-900 block">{{ __('messages.add_comment') }}</a>
+                    <div class="text-purple-600 mt-3"><i class="fa-solid fa-comment fa-lg"></i></div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Afficher le nom et le prénom du client en bas de la page -->
-    <div class="fixed bottom-0 left-0 w-full bg-gray-800 text-white text-center p-1">
+    {{-- 📍 Pied de page --}}
+    <div class="fixed bottom-0 left-0 w-full bg-black/70 text-white text-center p-4 text-sm backdrop-blur-sm z-30">
         @if(Auth::guard('client')->check())
-            <p>{{ __('messages.welcome_client', ['prenom' => Auth::guard('client')->user()->Prenom_Parent, 'nom' => Auth::guard('client')->user()->Nom_Parent]) }}</p>
+            <p>{{ __('messages.welcome_client', ['prenom' => Auth::guard('client')->user()->prenom_parent, 'nom' => Auth::guard('client')->user()->Nom_Parent]) }}</p>
         @else
             <p>{{ __('messages.welcome_guest') }}</p>
         @endif
-        <!-- Heures d'ouverture -->
+
         <div class="mt-2">
-            <p class="text-lg font-bold">{{ __('messages.opening_hours') }}</p>
+            <p class="font-semibold">{{ __('messages.opening_hours') }}</p>
             <p>{{ __('messages.monday_friday') }}</p>
             <p>{{ __('messages.saturday') }}</p>
             <p>{{ __('messages.sunday') }}</p>
         </div>
-        <i class="fa-brands fa-facebook"></i> <i class="fa-brands fa-instagram"></i> <i class="fa-brands fa-tiktok"></i>
+
+        <div class="mt-2 space-x-4 text-lg">
+            <i class="fa-brands fa-facebook"></i>
+            <i class="fa-brands fa-instagram"></i>
+            <i class="fa-brands fa-tiktok"></i>
+        </div>
     </div>
 </x-Client-layout>
