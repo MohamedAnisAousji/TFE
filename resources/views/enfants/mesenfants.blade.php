@@ -1,34 +1,58 @@
 <x-Client-layout>
-    <!-- Barre supérieure avec le titre -->
-    <div class="bg-orange-500 text-black py-4 shadow-md">
-        <h1 class="text-2xl font-bold text-center">Liste des Enfants</h1>
-    </div>
+    <div class="min-h-screen bg-cover bg-center bg-no-repeat flex flex-col"
+         style="background-image: url('{{ asset('images/enfant-header.jpg') }}');">
 
-    <div class="container mx-auto px-4 mt-4">
-        @if(session('success'))
-            <div class="bg-green-100 text-green-800 p-2 rounded mb-4 shadow">
-                {{ session('success') }}
-            </div>
-        @endif
+        <!-- Conteneur semi-transparent pour lisibilité -->
+        <div class="bg-white bg-opacity-80 backdrop-blur-sm flex-1 p-8">
+            @if(session('success'))
+                <div class="bg-green-100 text-green-800 p-3 rounded mb-6 border border-green-300 shadow">
+                    {{ session('success') }}
+                </div>
+            @endif
 
-        <form action="{{ route('enfants.mesenfants') }}" method="GET">
-            @csrf
-            <!-- Grille pour les cartes des enfants -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 @foreach($enfants as $enfant)
-                    @php
-                        $birthDate = new DateTime($enfant->Date_Naissance);
-                        $currentDate = new DateTime();
-                        $age = $currentDate->diff($birthDate)->y;
-                    @endphp
-                    <div class="bg-white shadow-lg rounded-lg p-4 border border-gray-200 hover:shadow-xl transition">
-                        <h2 class="text-xl font-bold text-gray-800 mb-2">{{ $enfant->Nom_enfant }} {{ $enfant->Prenom_enfant }}</h2>
-                        <p class="text-gray-600"><strong>Âge:</strong> {{ $age }} ans</p>
-                        <p class="text-gray-600"><strong>Date de Naissance:</strong> {{ $enfant->Date_Naissance }}</p>
-                        <p class="text-gray-600"><strong>Parent:</strong> {{ $enfant->client ? $enfant->client->Nom_Parent : 'Non assigné' }}</p>
+                    <div class="bg-white rounded-2xl shadow-md border hover:shadow-lg transition p-6">
+                        <div class="mb-4">
+                            <h2 class="text-xl font-semibold text-gray-800">
+                                {{ $enfant->nom_enfant }} {{ $enfant->prenom_Enfant }}
+                            </h2>
+                            <p class="text-sm text-gray-500 italic">ID: #{{ $enfant->id }}</p>
+                        </div>
+
+                        <ul class="text-gray-700 space-y-1 text-sm">
+                            <li>
+                                <strong>Âge :</strong>
+                                <span class="age-calc" data-date="{{ $enfant->date_Nais }}"></span>
+                            </li>
+                            <li>
+                                <strong>Date de naissance :</strong>
+                                {{ \Carbon\Carbon::parse($enfant->date_Nais)->format('d/m/Y') }}
+                            </li>
+                            <li>
+                                <strong>Parent :</strong>
+                                {{ $enfant->client->nom_parent ?? 'Non assigné' }}
+                            </li>
+                        </ul>
                     </div>
                 @endforeach
             </div>
-        </form>
+        </div>
     </div>
+
+    {{-- JS : Calcul âge --}}
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll(".age-calc").forEach(el => {
+                const dateStr = el.getAttribute("data-date");
+                if (!dateStr) return el.textContent = "—";
+                const birth = new Date(dateStr);
+                const today = new Date();
+                let age = today.getFullYear() - birth.getFullYear();
+                const m = today.getMonth() - birth.getMonth();
+                if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) age--;
+                el.textContent = age + " ans";
+            });
+        });
+    </script>
 </x-Client-layout>

@@ -19,6 +19,13 @@ class Enfant extends Model
 
     ];
 
+    protected $table = 'enfants';
+
+    // Si ton champ s'appelle date_Nais dans la BDD :
+    protected $dates = ['date_Nais'];
+
+
+
 
     public function client(): BelongsTo
     {
